@@ -11,50 +11,60 @@ Closing the webpage will clear the memorized values.-->
 	<body>
 		<h4>Online Calculator</h4>
 	
-		<div id= "formula"> <!--Display to show the calculation formula.-->
-			<form action="">
-                <input type="display" placeholder="">
-            </form>
-		</div>
-		<div id= "input"> <!--Input & result display box.-->
-			<form action="">
-                <input type="text" lang="en-150" placeholder="0">
-            </form>
-		</div>
-		<div id= "btnTop"> <!--Input buttons. Used with the keyboard & with the cursor.-->
-			<ul class= "rowOne">
-				<li id= "btnClearAll"><button>Cl/A</button></li>
-				<li id= "btnBackspace"><button>-></button></li>
-			</ul>
-		</div>
-		<div id="btnBottom"> <!--Input buttons. Used with the keyboard & with the cursor.-->
-			<ul id= "btnNr">
-				<li id= "btnOne" class= "rowTwo"><button>1</button></li>
-				<li id= "btnTwo" class= "rowTwo"><button>2</button></li>
-				<li id= "btnThree" class= "rowTwo"><button>3</button></li>
+		
+		<form name="calculator" label="Online Calculator" action="">
+			
+			<div id="calcBox"> <!--Display to show the calculation formula.-->
+				<input type="display" class="formula" name="formaulaDisplay" placeholder="" disabled>
+			</div>
+			<div id="inputBox"> <!--Input & result display box.-->
+				<input type="text" class="input" name="inputOutput" lang="en-150" placeholder="0" disabled>
+			</div>
+			
+			<!-- These sould work .. but they completely messed up the layout.
+			
+			= onclick="calculator.inputOutput.value += eval(calculator.inputOutput.value)"
+			+... onclick="calculator.formaulaDisplay.value += ‘/’ &&
+					calculator.inputOutput.value += ‘/’”
+			-->
+			
+			<table id="mainT" class="mainTable">
+				<tr id="btnMain"> <!--Input buttons. Used with the keyboard & with the cursor.-->
+					<td id="btnClearAll"><button id="clearAll" class="btnCA" name="clearAll">Cl/A</button></td>
+					<td id="btnBackspace"><button id="backspace" class="btnBS" name="backspace">-></button></td>
+					<!--	THE 	Above two are not yet implemented	-->
+					<td id="btnEqual"><button id="equal" class="btnE" name="equal">=</button></td>
+				</tr>
 				
-				<li id= "btnFour" class= "rowThree"><button>4</button></li>
-				<li id= "btnFive" class= "rowThree"><button>5</button></li>
-				<li id= "btnSix" class= "rowThree"><button>6</button></li>
-				
-				<li id= "btnSeven" class= "rowFour"><button>7</button></li>
-				<li id= "btnEight" class= "rowFour"><button>8</button></li>
-				<li id= "btnNine" class= "rowFour"><button>9</button></li>
-				
-				<li id= "btnZero" class= "rowFive"><button>0</button></li>
-				<li id= "btnDecimal" class= "rowFive"><button>,</button></li>
-				<li id= "btnEqual" class= "rowFive"><button>=</button></li>
-			</ul>
-			<ul id= "btnOp">
-				<li id= "btnPlus" class= "rowTwo"><button>+</button></li>
-				<li id= "btnMinus" class= "rowThree"><button>-</button></li>
-				<li id= "btnMultiply" class= "rowFour"><button>x</button></li>
-				<li id= "btnDivide" class= "rowFive"><button>/</button></li>
-			</ul>
-		</div>
-	
-	<!--JavaScript code-->
-    <div>	<script src="functions.js"></script>	</div>
+				<tr> <!--Input buttons. Used with the keyboard & with the cursor.-->
+					<td><button id="seven" name="seven" value="7">7</button></td>
+					<td><button id="eight" name="eight" value="8">8</button></td>
+					<td><button id="nine" name="nine" value="9">9</button></td>
+					<td><button id="plus" class ="operator" name="plus" value="/">/</button></td>
+				</tr>
+				<tr> <!--Input buttons. Used with the keyboard & with the cursor.-->
+					<td><button id="four" name="four" value="4">4</button></td>
+					<td><button id="five" name="five" value="5">5</button></td>
+					<td><button id="six" name="six" value="6">6</button></td>
+					<td><button id="multiply" class="operator" name="multiply" value="x">x</button></td>
+				</tr>
+				<tr> <!--Input buttons. Used with the keyboard & with the cursor.-->
+					<td><button id="one" name="one" value="1">1</button></td>
+					<td><button id="two" name="two" value="2">2</button></td>
+					<td><button id="three" name="three" value="3">3</button></td>
+					<td><button id="minus" class="operator" name="minus" value="-">-</button></td>
+				</tr>
+				<tr> <!--Input buttons. Used with the keyboard & with the cursor.-->
+					<td><button id="doubleZero" name="doubleZero" value="00">00</button></td>
+					<td><button id="zero" name="zero" value="0">0</button></td>
+					<td><button id="decimal" class="simbol" name="decimal" value=",">,</button></td>
+					<td><button id="plus"  class="operator" name="plus" value="+">+</button></td>
+				</tr>
+			</table>
+		</form>
+
+		<!--JavaScript code-->
+		<div>	<script src="functions.js"></script>	</div>
 	</body>
 	
 	<footer>
