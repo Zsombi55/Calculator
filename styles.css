@@ -1,0 +1,80 @@
+
+/*  selector    {   sub-attribute: value  }
+        p    {   color: red;  }     .. every instce of the sspecific tag.
+        #id_ {   color: red;  }     .. the object with the specific ID.
+        .class {   color: red;  }   .. all objects with the specific class.
+
+        hexadecimal color coding   .. 0 -> 9 -> A -> F .
+        color: #000         .. basic    .. red, green, blue, etc.
+        color: #000+ max x8 .. expanded .. shades and mixes of all variety.
+
+        Distances (border, padding, etc.): top, right, bottom, left.
+*/
+
+body {
+	margin: 50px 0 0 50px;
+	box-sizing: border-box;
+	width: 235px;
+	height: 350px;
+	border: 2px solid black;
+	padding: 20px 20px 20px 20px;
+}
+
+h4 {
+	margin: -15;
+	text-align: center;
+}
+
+#formula {
+	padding: 20px 10px 5px 10px;
+}
+
+#input {
+	padding: 10px 10px 5px 10px;
+}
+
+#input input {
+	text-align: right;
+}
+
+#btnTop ul {
+	padding: 5px 10px 5px 10px;
+}
+
+#btnBottom ul {
+	padding: 10px 10px 5px 10px;
+}
+
+#btnTop li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+#btnBottom li {
+    margin: 0;
+    padding: 0;
+}
+
+#btnOne, #btnTwo, #btnThree, #btnDivide {
+	display: inline;
+}
+
+#btnFour, #btnFive, #btnSix, #btnMultiply {
+	display: inline;
+}
+
+#btnSeven, #btnEight, #btnNine, #btnMinus {
+	display: inline;
+}
+
+#btnZero, #btnDecimal, #btnEqual, #btnPlus {
+	display: inline;
+}
+
+footer {
+	margin: 10px -22px 0 -22px ;
+	border: 2px solid black;
+	padding: 5px;
+	text-align: center;
+}
