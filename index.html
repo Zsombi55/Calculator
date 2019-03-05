@@ -1,0 +1,67 @@
+﻿<!--This is a simple calculator. Basic math operations: addition, subtraction, multiplication and division.
+Later extended with the ability to memorize up to 5 different values to work with later.
+Closing the webpage will clear the memorized values.-->
+
+<html>
+	<head>
+		<title>Online Calcualtor</title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	
+	<body>
+		<h4>Online Calculator</h4>
+	
+		
+		<form id="calculator" name="calculator" label="Online Calculator" action="">
+			
+			<div id="calcBox"> <!--Display to show the calculation formula.-->
+				<input type="display" id="formaulaDisplay" class="formula" placeholder="" readonly>
+			</div>
+			<div id="inputBox"> <!--Input & result display box.-->
+				<input type="text" id="inputOutput" class="input" lang="en-150" placeholder="0" readonly>
+			</div>
+			
+			<table id="mainT" class="mainTable">
+				<tr id="mainBtnRow"> <!--Input buttons. Used with the keyboard & with the cursor.-->
+						<td id="btnClearAll"><button id="clearAll" class="btnCA" name="clearAll">Cl/A</button></td>
+						<td id="btnClear"><button id="clear" class="btnC" name="clear">C</button></td>
+						<td id="btnBackspace"><button id="backspace" class="btnBS" name="backspace">&#10230;</button></td>
+						<!--	THE 	Above two are not yet implemented	-->
+						<td id="btnEqual"><button id="equal" class="btnE" name="equal">=</button></td>
+				</tr>
+				
+				<tr> <!--Input buttons. Used with the keyboard & with the cursor.-->
+					<td><button id="seven" class="nrBtn" name="seven" value="7">7</button></td>
+					<td><button id="eight" class="nrBtn" name="eight" value="8">8</button></td>
+					<td><button id="nine" class="nrBtn" name="nine" value="9">9</button></td>
+					<td><button id="plus" class ="operator" name="plus" value="/">/</button></td>
+				</tr>
+				<tr> <!--Input buttons. Used with the keyboard & with the cursor.-->
+					<td><button id="four" class="nrBtn" name="four" value="4">4</button></td>
+					<td><button id="five" class="nrBtn" name="five" value="5">5</button></td>
+					<td><button id="six" class="nrBtn" name="six" value="6">6</button></td>
+					<td><button id="multiply" class="operator" name="multiply" value="x">x</button></td>
+				</tr>
+				<tr> <!--Input buttons. Used with the keyboard & with the cursor.-->
+					<td><button id="one" class="nrBtn" name="one" value="1">1</button></td>
+					<td><button id="two" class="nrBtn" name="two" value="2">2</button></td>
+					<td><button id="three" class="nrBtn" name="three" value="3">3</button></td>
+					<td><button id="minus" class="operator" name="minus" value="-">-</button></td>
+				</tr>
+				<tr> <!--Input buttons. Used with the keyboard & with the cursor.-->
+					<td><button id="doubleZero" class="nrBtn" name="doubleZero" value="00">00</button></td>
+					<td><button id="zero" class="nrBtn" name="zero" value="0">0</button></td>
+					<td><button id="decimal" class="nrBtn" class="simbol" name="decimal" value=",">,</button></td>
+					<td><button id="plus"  class="operator" name="plus" value="+">+</button></td>
+				</tr>
+			</table>
+		</form>
+
+		<!--JavaScript code-->
+		<div>	<script src="functions.js"></script>	</div>
+	</body>
+	
+	<footer>
+		<a href="https://github.com/Zsombi55/Calculator">Project Source.</a>
+	</footer>
+</html>
