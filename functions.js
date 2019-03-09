@@ -1,32 +1,15 @@
 
 var ipOp = document.getElementById("inputOutput");
 var formDisp = document.getElementById("formulaDisplay");
-/*
-console.info(ipOp);
-console.info(formDisp);
-
-console.info(document.getElementById("seven").value);	// result: 7 , undefined
-// likely eror & undefined cause is that the getElementsByClassName returns an array of objects not a single object.
-
-function inputValue() {		
-		// ipOp.value += eval(ipOp.value);
-		ipOp.value = btnValue;
-		formDisp.value += btnValue;	// ^^ result: error can't read property value of [this line nr.] null.
-}
-
-console.info(inputValue());
-
-
-document.getElementsByClassName("nrBtn").onclick = function () {
-	inputValue();
-}*/
 
 /* function inputValue() {
-	var nrButtons = document.getElementsByClassName("nrBtn");
-	for(var i = 0; i < nrButtons.length; i++) {
-		nrButtons[i].onclick = function() {
-			// ipOp.value += nrButtons[i].value;
-			document.getElementById("inputOutput").value += nrButtons[i].value;
+	var nrBttn = document.getElementsByClassName("nrBtn");
+	for(var i = 0; i < nrBttn.length; i++) {
+		nrBttn[i].onclick = function() {
+			ipOp.value += nrBttn[i].value;
+			formDisp.value += document.nrBttn[i].value;
+			
+			console.info("Second box, inputOutput: " + ipOp.value);
 		}
 	}
 }
@@ -35,15 +18,91 @@ document.getElementById("seven").onclick = function() {
 	inputValue();
 } */
 
-function clickSeven() {
-	ipOp.value += document.getElementById("seven").value;
+// ----- Put the button values into the text fields. Numbers & symbols. -----
+// Numbers.
+document.getElementById("one").onclick = function() {
+	ipOp.value += document.getElementById("one").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
+
+document.getElementById("two").onclick = function() {
+	ipOp.value += document.getElementById("two").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
+
+document.getElementById("three").onclick = function() {
+	ipOp.value += document.getElementById("three").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
+
+document.getElementById("four").onclick = function() {
+	ipOp.value += document.getElementById("four").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
+
+document.getElementById("five").onclick = function() {
+	ipOp.value += document.getElementById("five").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
+
+document.getElementById("six").onclick = function() {
+	ipOp.value += document.getElementById("six").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
 }
 
 document.getElementById("seven").onclick = function() {
-	clickSeven();
-	console.info(ipOp.value);
+	ipOp.value += document.getElementById("seven").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
 }
 
+document.getElementById("eight").onclick = function() {
+	ipOp.value += document.getElementById("eight").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
 
+document.getElementById("nine").onclick = function() {
+	ipOp.value += document.getElementById("nine").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
 
+document.getElementById("zero").onclick = function() {
+	ipOp.value += document.getElementById("zero").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
 
+document.getElementById("doubleZero").onclick = function() {
+	ipOp.value += document.getElementById("doubleZero").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
+
+// Symbols.
+document.getElementById("decimal").onclick = function() {
+	ipOp.value += document.getElementById("decimal").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
+
+// ----- Remove characters, groups or completely clear the text fields. Cleaners. -----
+document.getElementById("clearAll").onclick = function() {
+	formDisp.value = "";
+	ipOp.value = "";
+	console.info("All clear.");
+}
+
+document.getElementById("clear").onclick = function() {
+	ipOp.value = "";
+	console.info("Input field clear.");
+}
+
+document.getElementById("backspace").onclick = function() {
+	var s = ipOp.value;
+	ipOp.value = s.substring(0, s.length - 1);
+	console.info("Second box, inputOutput: " + ipOp.value);
+}
+
+// ----- Put the button values into the text fields. Operators. -----
+/* document.getElementById("one").onclick = function() {
+	formDisp.value += document.getElementById("one").value;
+	ipOp.value += document.getElementById("one").value;
+	console.info("Second box, inputOutput: " + ipOp.value);
+} */
+// ----- . -----

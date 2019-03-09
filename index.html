@@ -15,7 +15,7 @@ Closing the webpage will clear the memorized values.-->
 		<form id="calculator" name="calculator" label="Online Calculator" onsubmit="return false">
 			
 			<div id="calcBox"> <!--Display to show the calculation formula.-->
-				<input type="display" id="formaulaDisplay" class="formula" placeholder="" readonly>
+				<input type="text" id="formulaDisplay" class="formula" placeholder="" readonly>
 			</div>
 			<div id="inputBox"> <!--Input & result display box.-->
 				<input type="text" id="inputOutput" class="input" lang="en-150" placeholder="0" readonly>
@@ -23,11 +23,10 @@ Closing the webpage will clear the memorized values.-->
 			
 			<table id="mainT" class="mainTable">
 				<tr id="mainBtnRow"> <!--Input buttons. Used with the keyboard & with the cursor.-->
-						<td id="btnClearAll"><button id="clearAll" class="btnCA" name="clearAll">Cl/A</button></td>
-						<td id="btnClear"><button id="clear" class="btnC" name="clear">C</button></td>
-						<td id="btnBackspace"><button id="backspace" class="btnBS" name="backspace">&#10230;</button></td>
-						<!--	THE 	Above two are not yet implemented	-->
-						<td id="btnEqual"><button id="equal" class="btnE" name="equal">=</button></td>
+						<td id="btnClearAll"><button id="clearAll" class="cleaner" name="clearAll">Cl/A</button></td>
+						<td id="btnClear"><button id="clear" class="cleaner" name="clear">C</button></td>
+						<td id="btnBackspace"><button id="backspace" class="cleaner" name="backspace">&#10230;</button></td>
+						<td id="btnEqual"><button id="equal" class="operator" name="equal">=</button></td>
 				</tr>
 				
 				<tr> <!--Input buttons. Used with the keyboard & with the cursor.-->
@@ -51,7 +50,7 @@ Closing the webpage will clear the memorized values.-->
 				<tr> <!--Input buttons. Used with the keyboard & with the cursor.-->
 					<td><button id="doubleZero" class="nrBtn" name="doubleZero" value="00">00</button></td>
 					<td><button id="zero" class="nrBtn" name="zero" value="0">0</button></td>
-					<td><button id="decimal" class="nrBtn" class="simbol" name="decimal" value=",">,</button></td>
+					<td><button id="decimal" class="nrBtn" name="decimal" value=",">,</button></td>
 					<td><button id="plus"  class="operator" name="plus" value="+">+</button></td>
 				</tr>
 			</table>
