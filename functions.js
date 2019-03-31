@@ -8,34 +8,34 @@ const eqDisplay = document.querySelector(".equation");
 const ioDisplay = document.querySelector(".input");
 
 const calculate = (fn, op, sn) => {
-				// Calculate, return result.
-				let result = "";
-				
-				// Regex formatting to make decimals dots and to remove all blank spaces & unused symbols.
-				// .replace(/\./g,"").replace(",", ".")
-				if (op === "add") {
-					result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) +
-					parseFloat(sn.replace(/\./g,"").replace(",", "."));
-				}
-				else if (op === "subtract") {
-					result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) -
-					parseFloat(sn.replace(/\./g,"").replace(",", "."));
-				}
-				else if (op === "multiply") {
-					result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) *
-					parseFloat(sn.replace(/\./g,"").replace(",", "."));
-				}
-				else if (op === "divide") {
-					result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) /
-					parseFloat(sn.replace(/\./g,"").replace(",", "."));
-				}
-				console.info(">> First value: " + fn + "\n" +
-							"Action: " + op + "\n" +
-							"Second value: " + sn + "\n" +
-							"Equation: " + fn + op + sn + "\n" +
-							"Result: ", result);
-				return result;
-			}
+	// Calculate, return result.
+	let result = "";
+	
+	// Regex formatting to make decimals dots and to remove all blank spaces & unused symbols.
+	// .replace(/\./g,"").replace(",", ".")
+	if (op === "add") {
+		result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) +
+		parseFloat(sn.replace(/\./g,"").replace(",", "."));
+	}
+	else if (op === "subtract") {
+		result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) -
+		parseFloat(sn.replace(/\./g,"").replace(",", "."));
+	}
+	else if (op === "multiply") {
+		result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) *
+		parseFloat(sn.replace(/\./g,"").replace(",", "."));
+	}
+	else if (op === "divide") {
+		result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) /
+		parseFloat(sn.replace(/\./g,"").replace(",", "."));
+	}
+	console.info(">> First value: " + fn + "\n" +
+				"Action: " + op + "\n" +
+				"Second value: " + sn + "\n" +
+				"Equation: " + fn + op + sn + "\n" +
+				"Result: ", result);
+	return result;
+}
 
 // Key press event handler.
 keys.addEventListener("click", e => {
