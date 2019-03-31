@@ -12,7 +12,7 @@
 */
 
 h4 {
-	margin: 15px 0 15px 45px;
+	margin: 15px 0 15px 58px;
 }
 
 form {
@@ -20,15 +20,25 @@ form {
 }
 
 #calcBox {
-	padding: 3px 3px 3px 13px;
+	padding: 3px 13px 3px 26px;
 }
 
 #inputBox {
-	padding: 3px 0 5px 13px
+	padding: 3px 13 5px 26px
 }
 
 .input {
 	text-align: right;
+}
+
+#calclatorForm{
+    float: left;
+    width: 210px;
+    padding: 0 0 0 0px;    /*  top, right, bottom, left  */
+}
+
+#mainTableDiv {
+	padding: 3px 13 5px 13;
 }
 
 table {
@@ -37,19 +47,13 @@ table {
 	width: 200px;
 }
 
-#calclatorForm{
-    float: left;
-    width: 210px;
-    padding: 0 0 0 25px;    /*  top, right, bottom, left  */
-}
-
 #valueMemoryBox{
 	padding-left: 325px;
 	border: 2px solid black;
 }
 
 footer {
-	margin: 8px;
+	margin: 8px 8px 8px 21px;
 	box-sizing: border-box;
 	width: 200px;
 	height: 30px;
