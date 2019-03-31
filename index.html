@@ -1,0 +1,65 @@
+﻿<!--This is a simple calculator. Basic math operations: addition, subtraction, multiplication and division.
+Later extended with the ability to memorize up to 5 different values to work with later.
+Closing the webpage will clear the memorized values.-->
+
+<html>
+	<head>
+		<title>Online Calcualtor</title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	
+	<body>
+		<div id="bodyContainer" class="container" name="bodyContainer">
+		
+			<h4>Online Calculator</h4>
+		
+			<div id="calculator" class="calculator">
+				<div id="calcBox" class="eqBox"> <!--Equation display box.-->
+					<input type="text" id="equationDisplay" class="equation" placeholder="" readonly>
+				</div>
+				<div id="inputBox" class="ioBox"> <!--Input & result display box.-->
+					<input type="text" id="inputOutput" class="input" lang="en-150" placeholder="0" readonly>
+				</div>
+					
+				<div id="keyBox" class="keyBox">
+					<button id="plus"  class="operator" name="plus" value="+" data-action="add">+</button>
+					<button id="minus" class="operator" name="minus" value="-" data-action="subtract">-</button>
+					<button id="multiply" class="operator" name="multiply" value="*" data-action="multiply">&times;</button>
+					<button id="divide" class ="operator" name="divide" value="/" data-action="divide">÷</button>
+					
+					<button id="seven" class="number" name="seven" value="7">7</button>
+					<button id="eight" class="number" name="eight" value="8">8</button>
+					<button id="nine" class="number" name="nine" value="9">9</button>
+					<button id="four" class="number" name="four" value="4">4</button>
+					<button id="five" class="number" name="five" value="5">5</button>
+					<button id="six" class="number" name="six" value="6">6</button>
+					<button id="one" class="number" name="one" value="1">1</button>
+					<button id="two" class="number" name="two" value="2">2</button>
+					<button id="three" class="number" name="three" value="3">3</button>
+					<button id="zero" class="number" name="zero" value="0">0</button>
+					<button id="doubleZero" class="number" name="doubleZero" value="00">00</button>
+					<button id="decimal" class="decimal" name="decimal" value="," data-action="decimal">,</button>
+						<!-- TODO: Change decimal display symbol to comma. -->
+					
+					<button id="clearAll" class="cleaner" name="clearAll" data-action="clearAll">Cl/A</button>
+					<button id="clear" class="cleaner" name="clear" data-action="clear">C</button>
+					<button id="backspace" class="cleaner" name="backspace" data-action="backspace">&#10230;</button>
+					<button id="equal" class="operatorEqual" name="equal" value="=" data-action="calculate">=</button>
+				</div>
+					
+				<!-- <div id="valueMemoryBox">
+				</div>
+					
+				<div id="messageBox">
+				</div> -->
+			</div>
+		</div>
+	
+		<!--JavaScript code-->
+		<div>	<script src="functions.js"></script>	</div>
+	</body>
+	
+	<!-- <footer>
+		<a href="https://github.com/Zsombi55/Calculator">Project Source.</a>
+	</footer> -->
+</html>
