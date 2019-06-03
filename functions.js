@@ -4,7 +4,6 @@
 const calculator = document.querySelector(".calculator");	// Div wrapper for input tags & the keyBox class div.
 const keys = calculator.querySelector(".keyBox");	// Div wrapper for the button tags.
 
-const eqDisplay = document.querySelector(".equation");
 const ioDisplay = document.querySelector(".input");
 
 const calculate = (fn, op, sn) => {
@@ -43,7 +42,6 @@ keys.addEventListener("click", e => {
 		const key = e.target;	// Generalization of individual button tags & press event declaration.
 		const action = key.dataset.action;	// Generalization of the button tags' "data-action" property.
 		const keyContent = key.textContent;
-		//const displayedEq = eqDisplay.value;	// Equation display field.
 		const displayedNr = ioDisplay.value;	// Input output field.
 		
 		const previousKeyType = calculator.dataset.previousKeyType;
@@ -69,7 +67,7 @@ keys.addEventListener("click", e => {
 		else if (action === "add" || action === "subtract" || action === "multiply" || action === "divide") {
 			const firstValue = calculator.dataset.firstValue;
 			const operator = calculator.dataset.operator;
-			const secondValue = displayedNr;
+			const secondValue = displayedNr + keyContent;
 				console.log("First value: " + firstValue + "\n" +
 							"Action: " + operator + "\n" +
 							"Second value:", secondValue);
@@ -133,7 +131,6 @@ keys.addEventListener("click", e => {
 		}
 		else if (action === "clearAll" || action === "clear" || action === "backspace") {
 			if (action === "clearAll") {
-				//eqDisplay.value = "";
 				ioDisplay.value = "";
 				calculator.dataset.firstValue = "";
 				calculator.dataset.modifierVal = "";
@@ -148,7 +145,7 @@ keys.addEventListener("click", e => {
 			calculator.dataset.previousKeyType = "cleaner";
 		}
 		
-		// Remove the ".isPressed" class from all operator keys to reset their style.
+		// Removes the ".isPressed" class from all operator keys to reset their style.
 		Array.from(key.parentNode.children).forEach (k => k.classList.remove("isPressed"));
 	}
 });

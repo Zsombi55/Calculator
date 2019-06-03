@@ -121,14 +121,14 @@ body {
   overflow: hidden;
 }
 
-.eqBox, .ioBox {
+/*.eqBox,*/ .ioBox {
   background-color: #222222;
   font-size: 1.5em;
   padding: 0.125em 0.75em;
   text-align: right;
 }
 
-.eqBox input, .ioBox input {
+/*.eqBox input,*/ .ioBox input {
     color: red;
 }
 
