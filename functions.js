@@ -141,9 +141,10 @@ keys.addEventListener("click", e => {
 				calculator.dataset.previousKeyType = "";
 			} else if (action === "clear") {
 				ioDisplay.value = "";
-			} /* else if (action === "backspace") {
-				//..
-			} */
+			} else if (action === "backspace") {
+				var val = ioDisplay.value;
+				ioDisplay.value = val.substr(0, val.length - 1);
+			}
 			calculator.dataset.previousKeyType = "cleaner";
 		}
 		
