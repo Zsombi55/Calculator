@@ -41,33 +41,35 @@ keys.addEventListener("click", e => {
 	if (e.target.matches("button")) {
 		const key = e.target;	// Generalization of individual button tags & press event declaration.
 		const action = key.dataset.action;	// Generalization of the button tags' "data-action" property.
-		const keyContent = key.textContent;
-		const displayedNr = ioDisplay.value;	// Input output field.
+		const keyContent = key.textContent; // Pressed key(s).
+		const displayedValue = ioDisplay.value;	// Input output field.
 		
 		const previousKeyType = calculator.dataset.previousKeyType;
-		
+		console.log(keyContent);
 		// Distinguish number, decimal, operator, equal operator and cleaner keys.
 		if (!action) {
-			if (displayedNr === "0" || previousKeyType === "operator" || previousKeyType === "calculate") {
+			if (displayedValue === "0" || previousKeyType === "operator" || previousKeyType === "calculate") {
 				ioDisplay.value = keyContent;	// if display is same as default 0, replace.
 			} else {
-				ioDisplay.value = displayedNr + keyContent;		// if different than default 0, append.
+				ioDisplay.value = displayedValue + keyContent;		// if different than default 0, append.
 			}
-			calculator.dataset.previousKey = "number";
+			calculator.dataset.previousKey = "number"; // Refers to the html tag's class.
 		}
-		else if (action === "decimal") {
-			if (!displayedNr.includes(",")) {	// Do nothing if theer already is a decimal comma.
-				ioDisplay.value = displayedNr + ",";
+		else if (action === "decimal") { // Placing decimals.
+			if (!displayedValue.includes(",")) {	// Do nothing if theer already is a decimal comma.
+				ioDisplay.value = displayedValue + ",";
 			}
 			else if (previousKeyType === "operator" || previousKeyType === "calculate") {
 				ioDisplay.value = "0,";
 			}
-			calculator.dataset.previousKeyType = "decimal";
+			calculator.dataset.previousKeyType = "decimal"; // Refers to the html tag's class.
 		}
 		else if (action === "add" || action === "subtract" || action === "multiply" || action === "divide") {
 			const firstValue = calculator.dataset.firstValue;
 			const operator = calculator.dataset.operator;
-			const secondValue = displayedNr + keyContent;
+			const secondValue = displayedValue + keyContent;
+			console.log(displayedValue); // at the time of pressing an operator this is displayed.
+			console.log(keyContent); // the pressed operator.
 				console.log("First value: " + firstValue + "\n" +
 							"Action: " + operator + "\n" +
 							"Second value:", secondValue);
@@ -79,21 +81,21 @@ keys.addEventListener("click", e => {
 				calculator.dataset.firstValue = calcValue;
 				//ioDisplay.value = calculate(firstValue, operator, secondValue);
 			} else {
-				calculator.dataset.firstValue = displayedNr;
+				calculator.dataset.firstValue = displayedValue;
 			}
 			
 			key.classList.add("isPressed"); // Show the user which opertor key was pressed last time.
-			calculator.dataset.previousKeyType = "operator";	// Add custom attribute.
-			calculator.dataset.firstValue = displayedNr;
+			calculator.dataset.previousKeyType = "operator";  // Refers to the html tag's class. Add custom attribute.
+			calculator.dataset.firstValue = displayedValue;
 			calculator.dataset.operator = action;
-				console.log("-- Previous key type: " + calculator.dataset.previousKeyType + "\n" +
+				console.log("-- Previous key type: " + calculator.dataset.previousKeyType +
 							"First value: " + calculator.dataset.firstValue + "\n" +
 							"Action: " + calculator.dataset.operator);
 		}
 		else if (action === "calculate") {
 			let firstValue = calculator.dataset.firstValue;
 			const operator = calculator.dataset.operator;
-			const secondValue = displayedNr;
+			const secondValue = displayedValue;
 				console.log("First value: " + firstValue + "\n" +
 							"Action: " + operator + "\n" +
 							"Second value:", secondValue);
@@ -121,7 +123,7 @@ keys.addEventListener("click", e => {
 			
 			if (firstValue) {
 				if (previousKeyType === "calculate") {
-					firstValue = displayedNr;
+					firstValue = displayedValue;
 					secondValue = calculator.dataset.modifierVal;	// "secondValue" is constant, this throws exception.
 				}
 				ioDisplay.value = calculate(firstValue, operator, secondValue);
