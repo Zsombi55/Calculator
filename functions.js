@@ -49,11 +49,19 @@ keys.addEventListener("click", e => {
 		}
 
 		else if (action === "add" || action === "subtract" || action === "multiply" || action === "divide") {
-			calculator.dataset.firstValue = lastValue;
-			calculator.dataset.operator = action;
-			lastAction = keyContent;
-			// firstValue = lastValue;
-			// operator = keyContent;
+			console.info("Last operator before this Operator: " + previousKeyType + "\n" +
+						"last value: " + lastValue + "\n" +
+						"current action: " + action + "\n" +
+						"current key content: " + keyContent);
+			if(previousKeyType === "operatorEqual") {
+				calculator.dataset.firstValue = lastValue;
+				calculator.dataset.operator = action;
+				lastAction = keyContent;
+			} else {
+				calculator.dataset.firstValue = lastValue;
+				calculator.dataset.operator = action;
+				lastAction = keyContent;
+			}
 			
 			console.log("Pre-operator value: " + lastValue); // at the time of pressing an operator this is shown.
 			console.log("The operator " + keyContent); // the pressed operator.
@@ -67,6 +75,11 @@ keys.addEventListener("click", e => {
 		}
 		
 		else if (action === "calculate") {
+			console.info("Last operator before this Equal: " + previousKeyType);
+			if(previousKeyType === "operatorEqual") {
+				return;
+			}
+
 			firstValue = calculator.dataset.firstValue;
 			operator = calculator.dataset.operator;
 			secondValue = lastValue;
@@ -76,6 +89,7 @@ keys.addEventListener("click", e => {
 						"Equation: " + firstValue + " " + operator + " " + secondValue);
 		
 			ioDisplay.value = calculate(firstValue, operator, secondValue);
+			calculator.dataset.previousKeyType = "operatorEqual";
 		}
 
 		else if (action === "clearAll" || action === "clear" || action === "backspace") {
@@ -85,6 +99,8 @@ keys.addEventListener("click", e => {
 				calculator.dataset.modifierVal = "";
 				calculator.dataset.operator = "";
 				calculator.dataset.previousKeyType = "";
+				firstValue, secondValue, result = 0;
+				lastAction, operator = null;
 			} else if (action === "clear") {
 				ioDisplay.value = "";
 			} else if (action === "backspace") {
@@ -110,11 +126,6 @@ keys.addEventListener("click", e => {
 
 		// else if (action === "calculate") {
 		// 	...
-		// 	if (firstValue) {
-		// 		if (previousKeyType === "calculate") {
-		// 			firstValue = lastValue;
-		// 			secondValue = calculator.dataset.modifierVal;
-		// 		}
 		// 		ioDisplay.textContent = calculate(firstValue, operator, secondValue);
 		// 	}
 		// 	calculator.dataset.modifierVal = secondValue;
