@@ -78,9 +78,23 @@ keys.addEventListener("click", e => {
 			ioDisplay.value = calculate(firstValue, operator, secondValue);
 		}
 
-		console.log("IO value post-change: " + ioDisplay.value);
+		else if (action === "clearAll" || action === "clear" || action === "backspace") {
+			if (action === "clearAll") {
+				ioDisplay.value = "";
+				calculator.dataset.firstValue = "";
+				calculator.dataset.modifierVal = "";
+				calculator.dataset.operator = "";
+				calculator.dataset.previousKeyType = "";
+			} else if (action === "clear") {
+				ioDisplay.value = "";
+			} else if (action === "backspace") {
+				var val = ioDisplay.value;
+				ioDisplay.value = val.substr(0, val.length - 1);
+			}
+			calculator.dataset.previousKeyType = "cleaner";
+		}
 
-		
+		console.log("IO value post-change: " + ioDisplay.value);
 
 		// 	// Do the equation here too in case the next key after getting the result is another operator.
 		// 	if (firstValue && operator && previousKeyType !== "operator" && previousKeyType !== "operatorEqual") {
@@ -91,12 +105,6 @@ keys.addEventListener("click", e => {
 		// 	} else {
 		// 		calculator.dataset.firstValue = lastValue;
 		// 	}
-		// 	...
-		// 	calculator.dataset.firstValue = lastValue;
-		// 	calculator.dataset.operator = action;
-		// 		console.log("-- Previous key type: " + calculator.dataset.previousKeyType + "\n" +
-		// 					"First value: " + calculator.dataset.firstValue + "\n" +
-		// 					"Action: " + calculator.dataset.operator);
 		//  ...
 		// }	// ->> the Operator else-if ENDING !!
 
@@ -112,21 +120,7 @@ keys.addEventListener("click", e => {
 		// 	calculator.dataset.modifierVal = secondValue;
 		// 	calculator.dataset.previousKeyType = "calculate";
 		// }
-		// else if (action === "clearAll" || action === "clear" || action === "backspace") {
-		// 	if (action === "clearAll") {
-		// 		ioDisplay.textContent = "";
-		// 		calculator.dataset.firstValue = "";
-		// 		calculator.dataset.modifierVal = "";
-		// 		calculator.dataset.operator = "";
-		// 		calculator.dataset.previousKeyType = "";
-		// 	} else if (action === "clear") {
-		// 		ioDisplay.textContent = "";
-		// 	} else if (action === "backspace") {
-		// 		var val = ioDisplay.textContent;
-		// 		ioDisplay.textContent = val.substr(0, val.length - 1);
-		// 	}
-		// 	calculator.dataset.previousKeyType = "cleaner";
-		// }
+		
 		
 		// Removes the ".isPressed" class from all operator keys to reset their style.
 		Array.from(key.parentNode.children).forEach (k => k.classList.remove("isPressed"));
@@ -136,8 +130,6 @@ keys.addEventListener("click", e => {
 const calculate = (fn, op, sn) => {	// fn - 1st number, op - operator (+ - * /), sn - 2nd number.
 	//  Calculate, return result.
 	let re = "";
-	
- 	// TODO: convert result back to string, changing the decimal dot to a comma, before sending to display.
 
 	// Regex formatting to make decimals dots and to remove all blank spaces & unused symbols.
 	// .replace(/\./g,"").replace(",", ".")
@@ -174,16 +166,12 @@ const calculate = (fn, op, sn) => {	// fn - 1st number, op - operator (+ - * /),
 
 
 /* -- TO DO --
-> else if display is same as default 0, BUT input is same 0 or double same 00, do nothing.
 
 > Make support function to change the button colors while pressed if pressing them does nothing.
 	- pressing the same operator key more than once after a number key should have no effect.
 
-> Pressing different operator keys right one after another should remove the previous one and add instead the new one.
 > Pressing the "equals" operator right after a different one should do nothing.
 	- or pressing it repeatedly after having it done so just before "this pressing event".
-
-> Make a "key tracker", use it to change the ipOp value instead of appending to it if pressing a number after the "equal".
 
 > Add a side panel where warning messages and finished equations are to be displayed, like a "session history".
 */
