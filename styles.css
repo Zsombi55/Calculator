@@ -187,11 +187,12 @@ body {
   color: white;
 }
 
-/* footer {
-	margin: 8px 8px 8px 21px;
-	box-sizing: border-box;
-	width: 200px;
-	height: 30px;
-	border: 2px solid black;
-	padding: 5px;
-} */
+footer {
+	position: absolute;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  background-color: rgb(175, 137, 137);
+  text-align: center;
+  line-height: 30px;  /*  Has to be larger than the font size.  */
+}

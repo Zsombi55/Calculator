@@ -2,39 +2,12 @@
 /*	"const" - are variables that we don't want to change. */
 
 const calculator = document.querySelector(".calculator");	// Div wrapper for input tags & the keyBox class div.
+const ioDisplay = document.querySelector(".input");
 const keys = calculator.querySelector(".keyBox");	// Div wrapper for the button tags.
 
-const ioDisplay = document.querySelector(".input");
-
-const calculate = (fn, op, sn) => {
-	// Calculate, return result.
-	let result = "";
-	
-	// Regex formatting to make decimals dots and to remove all blank spaces & unused symbols.
-	// .replace(/\./g,"").replace(",", ".")
-	if (op === "add") {
-		result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) +
-		parseFloat(sn.replace(/\./g,"").replace(",", "."));
-	}
-	else if (op === "subtract") {
-		result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) -
-		parseFloat(sn.replace(/\./g,"").replace(",", "."));
-	}
-	else if (op === "multiply") {
-		result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) *
-		parseFloat(sn.replace(/\./g,"").replace(",", "."));
-	}
-	else if (op === "divide") {
-		result = parseFloat(fn.replace(/\./g,"").replace(",", ".")) /
-		parseFloat(sn.replace(/\./g,"").replace(",", "."));
-	}
-	console.info(">> First value: " + fn + "\n" +
-				"Action: " + op + "\n" +
-				"Second value: " + sn + "\n" +
-				"Equation: " + fn + op + sn + "\n" +
-				"Result: ", result);
-	return result;
-}
+ioDisplay.value = 0;
+var firstValue, secondValue, result = 0;
+var operator, lastAction = null;
 
 // Key press event handler.
 keys.addEventListener("click", e => {
@@ -42,142 +15,159 @@ keys.addEventListener("click", e => {
 		const key = e.target;	// Generalization of individual button tags & press event declaration.
 		const action = key.dataset.action;	// Generalization of the button tags' "data-action" property.
 		const keyContent = key.textContent; // Pressed key(s).
-		const displayedValue = ioDisplay.value;	// Input output field.
-		
-		const previousKeyType = calculator.dataset.previousKeyType;
-		console.log(keyContent);
+		const lastValue = ioDisplay.value;	// Input output field content BEFORE the last key-press.
+		const previousKeyType = calculator.dataset.previousKeyType; // backup the last key's custom attribute.
+		console.log("IO value pre-change: " + ioDisplay.value);
+		// Last value, pre-key press: lastValue = 0 .
+		console.log("Last key press: " + keyContent);
+
 		// Distinguish number, decimal, operator, equal operator and cleaner keys.
-		if (!action) {
-			if (displayedValue === "0" || previousKeyType === "operator" || previousKeyType === "calculate") {
-				ioDisplay.value = keyContent;	// if display is same as default 0, replace.
+		if (!action) {	// if it does not have a "data-action" property (it is a number).
+			if (lastValue === "0" || previousKeyType === "operator" || previousKeyType === "operatorEqual") {
+				if(keyContent === "00"){
+					ioDisplay.value = "0";	// if display is same as default 0, replace.
+				}
+				else {
+					ioDisplay.value = keyContent;	// if the key is 00, replace with 0.
+				}
 			} else {
-				ioDisplay.value = displayedValue + keyContent;		// if different than default 0, append.
+				ioDisplay.value = lastValue + keyContent;		// if different than default 0, append.
 			}
-			calculator.dataset.previousKey = "number"; // Refers to the html tag's class.
+			calculator.dataset.previousKeyType = "number";
+			console.log("Last value, pre-key press (nr.): " + lastValue);
 		}
+
 		else if (action === "decimal") { // Placing decimals.
-			if (!displayedValue.includes(",")) {	// Do nothing if theer already is a decimal comma.
-				ioDisplay.value = displayedValue + ",";
+			if (!lastValue.includes(",")) {	// Do nothing if there already is a decimal comma.
+				ioDisplay.value = lastValue + ",";
 			}
-			else if (previousKeyType === "operator" || previousKeyType === "calculate") {
+			else if (lastValue === "0" || previousKeyType === "operator" || previousKeyType === "operatorEqual") {
 				ioDisplay.value = "0,";
 			}
-			calculator.dataset.previousKeyType = "decimal"; // Refers to the html tag's class.
+			calculator.dataset.previousKeyType = "decimal";
+			console.log("Last value, pre-key press (dec.): " + lastValue);
 		}
+
 		else if (action === "add" || action === "subtract" || action === "multiply" || action === "divide") {
-			const firstValue = calculator.dataset.firstValue;
-			const operator = calculator.dataset.operator;
-			const secondValue = displayedValue + keyContent;
-			console.log(displayedValue); // at the time of pressing an operator this is displayed.
-			console.log(keyContent); // the pressed operator.
-				console.log("First value: " + firstValue + "\n" +
-							"Action: " + operator + "\n" +
-							"Second value:", secondValue);
-			
-			// Do the equation here too in case the next key after getting the result is another operator.
-			if (firstValue && operator && previousKeyType !== "operator" && previousKeyType !== "calculate") {
-				const calcValue = calculate(firstValue, operator, secondValue);
-				ioDisplay.value = calcValue;	// TODO: see to making it " = result ".
-				calculator.dataset.firstValue = calcValue;
-				//ioDisplay.value = calculate(firstValue, operator, secondValue);
-			} else {
-				calculator.dataset.firstValue = displayedValue;
-			}
-			
-			key.classList.add("isPressed"); // Show the user which opertor key was pressed last time.
-			calculator.dataset.previousKeyType = "operator";  // Refers to the html tag's class. Add custom attribute.
-			calculator.dataset.firstValue = displayedValue;
+			calculator.dataset.firstValue = lastValue;
 			calculator.dataset.operator = action;
-				console.log("-- Previous key type: " + calculator.dataset.previousKeyType +
-							"First value: " + calculator.dataset.firstValue + "\n" +
-							"Action: " + calculator.dataset.operator);
+			lastAction = keyContent;
+			// firstValue = lastValue;
+			// operator = keyContent;
+			
+			console.log("Pre-operator value: " + lastValue); // at the time of pressing an operator this is shown.
+			console.log("The operator " + keyContent); // the pressed operator.
+			console.log("First value: " + firstValue + "\n" +
+						"Action: (" + keyContent + ") " + action + "\n" +
+						"Second value: ", secondValue);
+
+			key.classList.add("isPressed"); // Show the user which opertor key was pressed last time.
+			console.log("Last action: " + lastAction),
+			calculator.dataset.previousKeyType = "operator";  // Add custom attribute. Refers to the html tag's class.
 		}
+		
 		else if (action === "calculate") {
-			let firstValue = calculator.dataset.firstValue;
-			const operator = calculator.dataset.operator;
-			const secondValue = displayedValue;
-				console.log("First value: " + firstValue + "\n" +
-							"Action: " + operator + "\n" +
-							"Second value:", secondValue);
-			
-			/* const calculate = (fn, op, sn) => {
-				// Calculate, return result.
-				let result = "";
-				
-				if (op === "add") {
-					result = parseFloat(fn) + parseFloat(sn);
-				} else if (op === "substract") {
-					result = parseFloat(fn) - parseFloat(sn);
-				} else if (op === "multiply") {
-					result = parseFloat(fn) * parseFloat(sn);
-				} else if (op === "divide") {
-					result = parseFloat(fn) / parseFloat(sn);
-				}
-				console.info(">> First value: " + fn + "\n" +
-							"Action: " + op + "\n" +
-							"Second value: " + sn + "\n" +
-							"Equation: " + fn + op + sn + "\n" +
-							"Result: ", result);
-				return result;
-			} */
-			
-			if (firstValue) {
-				if (previousKeyType === "calculate") {
-					firstValue = displayedValue;
-					secondValue = calculator.dataset.modifierVal;	// "secondValue" is constant, this throws exception.
-				}
-				ioDisplay.value = calculate(firstValue, operator, secondValue);
-			}
-			calculator.dataset.modifierVal = secondValue;
-			calculator.dataset.previousKeyType = "calculate";
+			firstValue = calculator.dataset.firstValue;
+			operator = calculator.dataset.operator;
+			secondValue = lastValue;
+			console.log("First value: " + firstValue + "\n" +
+						"Action: (" + lastAction + ") " + operator + "\n" +
+						"Second value: ", secondValue + "\n" +
+						"Equation: " + firstValue + " " + operator + " " + secondValue);
+		
+			ioDisplay.value = calculate(firstValue, operator, secondValue);
 		}
-		else if (action === "clearAll" || action === "clear" || action === "backspace") {
-			if (action === "clearAll") {
-				ioDisplay.value = "";
-				calculator.dataset.firstValue = "";
-				calculator.dataset.modifierVal = "";
-				calculator.dataset.operator = "";
-				calculator.dataset.previousKeyType = "";
-			} else if (action === "clear") {
-				ioDisplay.value = "";
-			} else if (action === "backspace") {
-				var val = ioDisplay.value;
-				ioDisplay.value = val.substr(0, val.length - 1);
-			}
-			calculator.dataset.previousKeyType = "cleaner";
-		}
+
+		console.log("IO value post-change: " + ioDisplay.value);
+
+		
+
+		// 	// Do the equation here too in case the next key after getting the result is another operator.
+		// 	if (firstValue && operator && previousKeyType !== "operator" && previousKeyType !== "operatorEqual") {
+		// 		const calcValue = calculate(firstValue, operator, secondValue);
+		// 		ioDisplay.textContent = calcValue;
+		//		//  ioDisplay.textContent = result;
+		// 		calculator.dataset.firstValue = calcValue;
+		// 	} else {
+		// 		calculator.dataset.firstValue = lastValue;
+		// 	}
+		// 	...
+		// 	calculator.dataset.firstValue = lastValue;
+		// 	calculator.dataset.operator = action;
+		// 		console.log("-- Previous key type: " + calculator.dataset.previousKeyType + "\n" +
+		// 					"First value: " + calculator.dataset.firstValue + "\n" +
+		// 					"Action: " + calculator.dataset.operator);
+		//  ...
+		// }	// ->> the Operator else-if ENDING !!
+
+		// else if (action === "calculate") {
+		// 	...
+		// 	if (firstValue) {
+		// 		if (previousKeyType === "calculate") {
+		// 			firstValue = lastValue;
+		// 			secondValue = calculator.dataset.modifierVal;
+		// 		}
+		// 		ioDisplay.textContent = calculate(firstValue, operator, secondValue);
+		// 	}
+		// 	calculator.dataset.modifierVal = secondValue;
+		// 	calculator.dataset.previousKeyType = "calculate";
+		// }
+		// else if (action === "clearAll" || action === "clear" || action === "backspace") {
+		// 	if (action === "clearAll") {
+		// 		ioDisplay.textContent = "";
+		// 		calculator.dataset.firstValue = "";
+		// 		calculator.dataset.modifierVal = "";
+		// 		calculator.dataset.operator = "";
+		// 		calculator.dataset.previousKeyType = "";
+		// 	} else if (action === "clear") {
+		// 		ioDisplay.textContent = "";
+		// 	} else if (action === "backspace") {
+		// 		var val = ioDisplay.textContent;
+		// 		ioDisplay.textContent = val.substr(0, val.length - 1);
+		// 	}
+		// 	calculator.dataset.previousKeyType = "cleaner";
+		// }
 		
 		// Removes the ".isPressed" class from all operator keys to reset their style.
 		Array.from(key.parentNode.children).forEach (k => k.classList.remove("isPressed"));
 	}
 });
 
+const calculate = (fn, op, sn) => {	// fn - 1st number, op - operator (+ - * /), sn - 2nd number.
+	//  Calculate, return result.
+	let re = "";
+	
+ 	// TODO: convert result back to string, changing the decimal dot to a comma, before sending to display.
 
+	// Regex formatting to make decimals dots and to remove all blank spaces & unused symbols.
+	// .replace(/\./g,"").replace(",", ".")
+	if (op === "add") {
+		re = parseFloat(fn.replace(/\./g,"").replace(",", ".")) +
+		parseFloat(sn.replace(/\./g,"").replace(",", "."));
+	}
+	else if (op === "subtract") {
+		re = parseFloat(fn.replace(/\./g,"").replace(",", ".")) -
+		parseFloat(sn.replace(/\./g,"").replace(",", "."));
+	}
+	else if (op === "multiply") {
+		re = parseFloat(fn.replace(/\./g,"").replace(",", ".")) *
+		parseFloat(sn.replace(/\./g,"").replace(",", "."));
+	}
+	else if (op === "divide") {
+		re = parseFloat(fn.replace(/\./g,"").replace(",", ".")) /
+		parseFloat(sn.replace(/\./g,"").replace(",", "."));
+	}
 
+	result = re.toString().replace(".", ",");	// Re-convert to string.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	console.info(">> First value: " + fn + "\n" +
+				"Action: (" + lastAction + ") " + op + "\n" +
+				"Second value: " + sn + "\n" +
+				"Equation: " + fn + " " + op + " " + sn + "\n" +
+				"Result (float): ", re + "\n" +
+				"Result (string): ", result);
+	return re, result;
+}
 
 
 
