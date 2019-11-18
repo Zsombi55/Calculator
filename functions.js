@@ -18,9 +18,10 @@ keys.addEventListener("click", e => {
 		const keyContent = key.textContent; // Pressed key(s).
 		const lastValue = ioDisplay.value;	// Input-output field content BEFORE the last key-press.
 		const previousKeyType = calculator.dataset.previousKeyType; // backup the last key's custom attribute.
-		console.log("IO value pre-change: " + ioDisplay.value);
+		
 		// Last value, pre-key press: lastValue = 0 .
-		console.log("Last key press: " + keyContent);
+		console.log("IO value pre-change: " + ioDisplay.value + "\n" +
+					"Last key press: " + keyContent);
 
 		// Distinguish number, decimal, operator, equal operator and cleaner keys.
 		if (!action) {	// if it does not have a "data-action" property (it is a number).
@@ -50,15 +51,22 @@ keys.addEventListener("click", e => {
 		}
 
 		else if (action === "add" || action === "subtract" || action === "multiply" || action === "divide") {
+			console.info("Last operator before this Operator: " + previousKeyType);
+			if(previousKeyType === "operator") {
+				calculator.dataset.operator = action; // Overwrite the "action" in it.
+				lastAction = keyContent;
+				return;
+			}
+			
 			console.info("Last key type before this Operator: " + previousKeyType + "\n" +
 						"last value: " + lastValue + "\n" +
 						"current action: " + action + "\n" +
 						"current key content: " + keyContent);
-			/* if (previousKeyType === "operatorEqual") {
+			if (previousKeyType === "operatorEqual") {
 				calculator.dataset.firstValue = lastValue; // When this is empty save the "lastValue" in it.
 				calculator.dataset.operator = action; // -||- "action" in it.
 				lastAction = keyContent;
-			} else */ if (calculator.dataset.firstValue && calculator.dataset.operator) {
+			} else if (calculator.dataset.firstValue && calculator.dataset.operator) {
 				firstValue = calculator.dataset.firstValue;
 				operator = calculator.dataset.operator;
 				secondValue = lastValue;
@@ -69,29 +77,28 @@ keys.addEventListener("click", e => {
 		
 				ioDisplay.value = calculate(firstValue, operator, secondValue);
 
-				calculator.dataset.firstValue = result;
-				calculator.dataset.operator = action;
+				calculator.dataset.operator = action; // -||- "action" in it.
 				lastAction = keyContent;
 			} else {
-				calculator.dataset.firstValue = lastValue;
+				calculator.dataset.firstValue = lastValue; // When this is empty save the "lastValue" in it.
 				calculator.dataset.operator = action;
 				lastAction = keyContent;
 			}
 			
-			console.log("Pre-operator value: " + lastValue); // at the time of pressing an operator this is shown.
-			console.log("The operator " + keyContent); // the pressed operator.
-			console.log("First value: " + firstValue + "\n" +
+			console.log("Pre-operator value: " + lastValue + "\n" + // at the time of pressing an operator this is shown.
+						"The operator " + keyContent + "\n" + // the pressed operator.
+						"First value: " + firstValue + "\n" +
 						"Action: (" + keyContent + ") " + action + "\n" +
 						"Second value: ", secondValue);
 
 			key.classList.add("isPressed"); // Show the user which opertor key was pressed last time.
 			console.log("Last action: " + lastAction),
 			calculator.dataset.previousKeyType = "operator";  // Add custom attribute. Refers to the html tag's class.
-		}
+		} // ->> the Operator else-if ENDING !!
 		
 		else if (action === "calculate") {
 			console.info("Last operator before this Equal: " + previousKeyType);
-			if(previousKeyType === "operatorEqual") {
+			if(previousKeyType === "operatorEqual" || previousKeyType === "operator") {
 				return;
 			}
 
@@ -131,18 +138,6 @@ keys.addEventListener("click", e => {
 
 		console.log("IO value post-change: " + ioDisplay.value);
 
-		// 	// Do the equation here too in case the next key after getting the result is another operator.
-		// 	if (firstValue && operator && previousKeyType !== "operator" && previousKeyType !== "operatorEqual") {
-		// 		const calcValue = calculate(firstValue, operator, secondValue);
-		// 		ioDisplay.textContent = calcValue;
-		//		//  ioDisplay.textContent = result;
-		// 		calculator.dataset.firstValue = calcValue;
-		// 	} else {
-		// 		calculator.dataset.firstValue = lastValue;
-		// 	}
-		//  ...
-		// }	// ->> the Operator else-if ENDING !!
-		
 		// Removes the ".isPressed" class from all operator keys to reset their style.
 		Array.from(key.parentNode.children).forEach (k => k.classList.remove("isPressed"));
 	}
@@ -172,6 +167,7 @@ const calculate = (fn, op, sn) => {	// fn - 1st number, op - operator (+ - * /),
 	}
 
 	result = re.toString().replace(".", ",");	// Re-convert to string.
+	calculator.dataset.firstValue = result;
 
 	console.info(">> First value: " + fn + "\n" +
 				"Action: (" + lastAction + ") " + op + "\n" +
@@ -187,12 +183,6 @@ const calculate = (fn, op, sn) => {	// fn - 1st number, op - operator (+ - * /),
 
 
 /* -- TO DO --
-
-> Make support function to change the button colors while pressed if pressing them does nothing.
-	- pressing the same operator key more than once after a number key should have no effect.
-
-> Pressing the "equals" operator right after a different one should do nothing.
-	- or pressing it repeatedly after having it done so just before "this pressing event".
 
 > Add a side panel where warning messages and finished equations are to be displayed, like a "session history".
 */
