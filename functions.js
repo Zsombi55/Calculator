@@ -9,13 +9,14 @@ ioDisplay.value = 0;
 var firstValue, secondValue, result = 0;
 var operator, lastAction = null;
 
-// Key press event handler.
+// Key press event handler - runs (again) every time a button /key is pressed
+// => each key-press (re-)sets all variables.
 keys.addEventListener("click", e => {
 	if (e.target.matches("button")) {
 		const key = e.target;	// Generalization of individual button tags & press event declaration.
 		const action = key.dataset.action;	// Generalization of the button tags' "data-action" property.
 		const keyContent = key.textContent; // Pressed key(s).
-		const lastValue = ioDisplay.value;	// Input output field content BEFORE the last key-press.
+		const lastValue = ioDisplay.value;	// Input-output field content BEFORE the last key-press.
 		const previousKeyType = calculator.dataset.previousKeyType; // backup the last key's custom attribute.
 		console.log("IO value pre-change: " + ioDisplay.value);
 		// Last value, pre-key press: lastValue = 0 .
@@ -49,12 +50,26 @@ keys.addEventListener("click", e => {
 		}
 
 		else if (action === "add" || action === "subtract" || action === "multiply" || action === "divide") {
-			console.info("Last operator before this Operator: " + previousKeyType + "\n" +
+			console.info("Last key type before this Operator: " + previousKeyType + "\n" +
 						"last value: " + lastValue + "\n" +
 						"current action: " + action + "\n" +
 						"current key content: " + keyContent);
-			if(previousKeyType === "operatorEqual") {
-				calculator.dataset.firstValue = lastValue;
+			/* if (previousKeyType === "operatorEqual") {
+				calculator.dataset.firstValue = lastValue; // When this is empty save the "lastValue" in it.
+				calculator.dataset.operator = action; // -||- "action" in it.
+				lastAction = keyContent;
+			} else */ if (calculator.dataset.firstValue && calculator.dataset.operator) {
+				firstValue = calculator.dataset.firstValue;
+				operator = calculator.dataset.operator;
+				secondValue = lastValue;
+				console.log("First value: " + firstValue + "\n" +
+						"Action: (" + lastAction + ") " + operator + "\n" +
+						"Second value: ", secondValue + "\n" +
+						"Equation: " + firstValue + " " + operator + " " + secondValue);
+		
+				ioDisplay.value = calculate(firstValue, operator, secondValue);
+
+				calculator.dataset.firstValue = result;
 				calculator.dataset.operator = action;
 				lastAction = keyContent;
 			} else {
@@ -102,6 +117,7 @@ keys.addEventListener("click", e => {
 				firstValue = 0;
 				secondValue = 0;
 				result = 0;
+				// lastValue  is constant, cannot be reset.
 				lastAction = null;
 				operator = null;
 			} else if (action === "clear") {
@@ -126,15 +142,6 @@ keys.addEventListener("click", e => {
 		// 	}
 		//  ...
 		// }	// ->> the Operator else-if ENDING !!
-
-		// else if (action === "calculate") {
-		// 	...
-		// 		ioDisplay.textContent = calculate(firstValue, operator, secondValue);
-		// 	}
-		// 	calculator.dataset.modifierVal = secondValue;
-		// 	calculator.dataset.previousKeyType = "calculate";
-		// }
-		
 		
 		// Removes the ".isPressed" class from all operator keys to reset their style.
 		Array.from(key.parentNode.children).forEach (k => k.classList.remove("isPressed"));
