@@ -99,8 +99,11 @@ keys.addEventListener("click", e => {
 				calculator.dataset.modifierVal = "";
 				calculator.dataset.operator = "";
 				calculator.dataset.previousKeyType = "";
-				firstValue, secondValue, result = 0;
-				lastAction, operator = null;
+				firstValue = 0;
+				secondValue = 0;
+				result = 0;
+				lastAction = null;
+				operator = null;
 			} else if (action === "clear") {
 				ioDisplay.value = "";
 			} else if (action === "backspace") {
